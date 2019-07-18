@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Numerosity Plugin</title>
+		<script src="jspsych-6.0.5/jspsych.js"></script>
+		<script src="jspsych-6.0.5/plugins/jspsych-instructions.js"></script>
+		<script src='numerosity-task-plugin.js'></script>
+		<link rel="stylesheet" href="jspsych-6.0.5/css/jspsych.css"></link>
+	</head>
+	<body></body>
+	<script>
+
+		my_timeline = []
+
+		var instructions = {
+		    type: 'instructions',
+		    pages: [
+		        '<p> Welcome!</p> <p> This plugin randomly generates circles in a rectangular box for numerosity tasks </p>',
+						'<p> For this demo, you will see two rectangle boxes with different numbers of circles in them. </p> <p>On your keyboard, press <strong>p</strong> if you believe the left box has more circles than the right box. </p> Press <strong>q</strong> if you believe the right box has more circles than the left.'
+		        ],
+			  show_clickable_nav: true,
+		};
+
+
+		// declare the block.
+		var trial = {
+		  type:'numerosity-task',
+			// default parameters
+			mean1: 65,
+			sd1:10,
+			mean2: 65,
+			sd2:10,
+			trial_duration: 1000
+		};
+
+		var test_procedure = {
+      timeline: [trial],
+      repetitions: 5
+    }
+
+		var trial_start = {
+			type: 'html-keyboard-response',
+			stimulus: '<p> End of Demo </p>',
+		}
+
+
+		jsPsych.init({
+			timeline: [instructions, test_procedure],
+			on_finish: function(){
+				jsPsych.data.displayData();
+			}
+		});
+	</script>
+</html>
